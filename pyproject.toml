@@ -1,0 +1,32 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "D4TAlink"
+description = "D4TAlink (https://d4ta.link/) enables seamless compliance of data analysis pipelines with FAIR data and ALCOA principles. D4TAlink comprises two software packages in R and python."
+version = "0.0.1"
+authors = [
+  { name="Gregoire Thomas", email="gregoire.thomas@squ4re.com" },
+]
+maintainers = [
+  { name="Gregoire Thomas", email="gregoire.thomas@squ4re.com" },
+]
+dependencies = [
+  "pathlib",
+  "pandas"
+]
+requires-python = ">=3.7"
+readme = "README.md"
+license = {file = "LICENSE"}
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python"
+]
+
+[project.urls]
+Homepage = "https://d4ta.link"
+Documentation = "https://d4ta.link"
+Repository = "https://bitbucket.org/SQ4/dtalink.py.git"
+Issues = "https://bitbucket.org/SQ4/dtalink.python/issues"
+Changelog = "https://bitbucket.org/SQ4/dtalink.python/src/master/CHANGELOG.md"
