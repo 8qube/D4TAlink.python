@@ -298,7 +298,7 @@ class Task:
             pickle.dump(obj,fp)
         return fn
     # -------------------------------------
-    def loadBinary(self,type,subdir=None):
+    def readBinary(self,type,subdir=None):
         """Load a binary object from a file. The object is loaded from a binary file. The file path is constructed from the task directories, the file type, and the file extension. The object is loaded from the file using the pickle module. The object is returned.
         
         Attributes:
@@ -317,7 +317,7 @@ class Task:
         """Save a DataFrame to a report file. The DataFrame is saved to an Excel file. The file path is constructed from the task directories, the file type, and the file extension. The file path is created if it does not exist. The DataFrame is saved to the file using the to_excel method.
         
         Attributes:
-        df (DataFrame): The DataFrame to save.
+        df (DataFrame or Dict): The DataFrame(s) to save.
         type (str): The type of the file.
         subdir (str): The subdirectory for the file (optional).
 
@@ -325,10 +325,17 @@ class Task:
         str: The file path for the Excel file.
         """
         fn = self.reportFn(type,"xlsx",subdir)
-        df.to_excel(fn,sheet_name='worksheet',index=False)
+        print(fn)
+        if isinstance(df, pd.DataFrame):
+            df.to_excel(fn,sheet_name='worksheet',index=False)
+        elif isinstance(df, dict):
+            with pd.ExcelWriter(fn, engine='xlsxwriter') as writer:
+                for (k,v) in df.items():
+                    v.to_excel(writer,sheet_name=k,index=False)
+                #writer.save()
         return fn
     # -------------------------------------
-    def loadReportXls(self,type,subdir=None):
+    def readReportXls(self,type,subdir=None):
         """Load a DataFrame from a report file. The DataFrame is loaded from an Excel file. The file path is constructed from the task directories, the file type, and the file extension. The DataFrame is loaded from the file using the read_excel method. The DataFrame is returned.
         
         Attributes:
@@ -336,10 +343,10 @@ class Task:
         subdir (str): The subdirectory for the file (optional).
         
         Returns:
-        DataFrame: The DataFrame loaded from the file.
+        DataFrame: The DataFrame or Dict of DataFrames loaded from the file.
         """
         fn = self.reportFn(type,"xlsx",subdir)
-        df = pd.read_excel(fn,sheet_name='worksheet')
+        df = pd.read_excel(fn,sheet_name=None)
         return df
     # -------------------------------------
     def saveReportCsv(self,df,type,subdir=None,sep=",",encoding="utf-8"):
@@ -359,7 +366,7 @@ class Task:
         df.to_csv(fn,index=False,sep=sep,encoding=encoding)
         return fn
     # -------------------------------------
-    def loadReportCsv(self,type,subdir=None,sep=",",encoding="utf-8"):
+    def readReportCsv(self,type,subdir=None,sep=",",encoding="utf-8"):
         """Load a DataFrame from a report file. The DataFrame is loaded from a CSV file. The file path is constructed from the task directories, the file type, and the file extension. The DataFrame is loaded from the file using the read_csv method. The DataFrame is returned.
         
         Attributes:

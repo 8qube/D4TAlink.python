@@ -39,14 +39,14 @@ See also:
 
 1. Load [D4TAlink.light](https://bitbucket.org/SQ4/d4talink.light/)
 ```py
-import D4TAlink as D4
+import d4talink as D4
 ```
 
 2. Parametrise 
 ```py
 D4.setTaskAuthor("Doe Johns")
 D4.setTaskSponsor("myClient")
-D4.setTaskRoot("~/myDataRepository", dirCreate = TRUE)
+D4.setTaskRoot("~/myDataRepository", dirCreate = True)
 ```
 
 3. Create two tasks (```package``` refers here to a _work package_)
@@ -90,9 +90,9 @@ e  = mytask.readBinary("myTables")
 
 8. Add reports to a task
 ```R
-excelfilename <- mytask.saveReportXls(d, "tables")
+excelfilename = mytask.saveReportXls(d, "tables")
 
-csvfile <- mytask.saveReportCsv(d["letters"], "tables")
+csvfile = mytask.saveReportCsv(d["letters"], "tables")
 print(csvfile)
 ```
 

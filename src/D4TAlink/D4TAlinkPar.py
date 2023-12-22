@@ -25,7 +25,7 @@ D4TAlinkInit()
 # -------------------------------------------------------------------------------
 
 # -------------------------------------------------------------------------------
-def setTaskRoot(root):
+def setTaskRoot(root, dirCreate = False):
     """Set the root directory for the tasks. This is the directory where the tasks are stored. The root directory should contain subdirectories for each sponsor, project, and package. The task files are stored in the package directory. The root directory should be a string with the full path to the root directory. The function returns the root directory.
     
     Attributes:
@@ -34,6 +34,8 @@ def setTaskRoot(root):
     Returns:
     str: The root directory for the tasks.
     """
+    if dirCreate:
+        os.makedirs(root, exist_ok = True)
     if not os.path.exists(root):
         raise FileNotFoundError(f"Root directory '{root}' does not exist.")
     D4TAlinkInit()
